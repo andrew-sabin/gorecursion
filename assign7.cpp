@@ -10,10 +10,7 @@ using namespace std;
 
 const int BOARD_SIZE = 9;
 char savedBoard[BOARD_SIZE][BOARD_SIZE];
-int savedRows = {};
-int savedRowsSize = 0;
-int savedCols = {};
-int savedColsSize = 0;
+
 
 
 /*
@@ -107,7 +104,7 @@ int findGroup(char sourceBoard[BOARD_SIZE][BOARD_SIZE], int moveRow, int moveCol
     if(sourceBoard[moveRow][moveCol] == '-' || sourceBoard[moveRow][moveCol] == 'B' || sourceBoard[moveRow][moveCol] == 'W'){
         return 0;
     }
-//    color = sourceBoard[moveRow][moveCol];
+
     char oppositeColor;
     if(color == 'w'){
         oppositeColor = 'b';
@@ -132,7 +129,7 @@ int findGroup(char sourceBoard[BOARD_SIZE][BOARD_SIZE], int moveRow, int moveCol
         }
     }
     copyBoard(updatedBoard,savedBoard);
-    printBoard(savedBoard);
+    //printBoard(savedBoard);
 //  Recurses through the board in the ordered directions right,left,down, up
 //  Saves the values for each direction value, where the totalGroup is equal to all direction recursions
     int moveRight = findGroup(savedBoard,moveRow,moveCol+1,color);
@@ -169,7 +166,7 @@ int findLiberties(char sourceBoard[BOARD_SIZE][BOARD_SIZE], int moveRow, int mov
     if(updatedBoard[moveRow][moveCol] == '-'){
         updatedBoard[moveRow][moveCol] = '*';
         copyBoard(updatedBoard,savedBoard);
-        printBoard(savedBoard);
+        //printBoard(savedBoard);
         return 1;
     }
     if(updatedBoard[moveRow][moveCol] != color){
@@ -215,8 +212,10 @@ int main()
      int checkBoard[BOARD_SIZE][BOARD_SIZE] = {0};
 
      int numberOfLiberties = findLiberties(fullBoard,x,y,color, checkBoard);
+     copyBoard(savedBoard, fullBoard);
+     printBoard(fullBoard);
 
-     cout << "You have : " << numberOfGroups << " group(s)"<< endl;
-     cout << "You have : " << numberOfLiberties << " liberties" << endl;
+     cout << "You have : " << numberOfGroups << " stone(s) in your group."<< endl;
+     cout << "You have : " << numberOfLiberties << " possible liberties." << endl;
 
 }
